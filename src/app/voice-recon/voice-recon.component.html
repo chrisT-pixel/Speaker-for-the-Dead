@@ -1,0 +1,11 @@
+<div>
+    
+    <h1>Voice recognition</h1>
+    <button style="margin: 10px;" (click)="startService()">Start</button>
+    <button style="margin: 10px;" (click)="stopService()">Stop</button>
+
+    <!--<app-open-ai-chat [promptString]="promptString" (stopRecording)="generateText($event)"></app-open-ai-chat>-->
+    <app-open-ai-chat [promptString]="promptString" [responseString]="responseString"></app-open-ai-chat>
+    <p>{{responseString}}</p>
+    <!--<app-text-to-speech [responseString]="responseString"></app-text-to-speech>-->
+</div>

@@ -1,0 +1,84 @@
+<!-- man speaks the response whenever this value changes -->
+<div class="responseStringWrapper">this is the response string in the text-to-speech component: {{responseString}}</div>
+
+
+<!--<div class="form-field">
+    <label for="voice-control" class="form-field__label">
+        Voice:
+    </label>
+    <div class="form-field__content">
+        <select id="voice-control" name="voice" [(ngModel)]="selectedVoice"
+            (change)="demoSelectedVoice(); updateSayCommand()" class="form-field__control">
+            <option value="">- Select a voice -</option>
+            <option *ngFor="let voice of voices" [ngValue]="voice">
+                {{ voice.name }}
+
+                <ng-template [ngIf]="recommendedVoices[ voice.name ]">
+                    &larr; Recommended
+                </ng-template>
+            </option>
+        </select>
+
+        <div class="form-field__subnote">
+            ( &larr; ) indicates a voice that Chris could understand clearly.
+        </div>
+    </div>
+</div>
+
+<div class="form-field">
+    <label for="rate-control" class="form-field__label">
+        Speed:
+    </label>
+    <div class="form-field__content">
+        <select id="rate-control" name="rate" [(ngModel)]="selectedRate"
+            (change)="demoSelectedVoice(); updateSayCommand()" class="form-field__control">
+            <option *ngFor="let rate of rates" [ngValue]="rate">
+                {{ rate }}
+
+                <ng-template [ngIf]="( rate === 1 )">
+                    ( Normal )
+                </ng-template>
+            </option>
+        </select>
+    </div>
+</div>-->
+
+<!--<div class="form-field">
+    <label for="text-control" class="form-field__label">
+        Text:
+    </label>
+    <div class="form-field__content">
+        <textarea id="text-control" name="text" [(ngModel)]="text" (change)="speak()"
+            (keydown.Meta.Enter)="speak()" value={{responseString}} class="form-field__control"></textarea>
+
+        <div class="form-field__subnote">
+            You can hit <code>CMD+Enter</code> to speak text.
+        </div>
+    </div>
+</div>
+
+<div class="form-actions">
+    <button type="button" (click)="speak()" class="form-actions__button">
+        Speak text
+    </button>
+
+    <button type="button" (click)="stop()" class="form-actions__button form-actions__button--secondary">
+        Stop speaking
+    </button>
+</div>-->
+
+
+<!--<div *ngIf="sayCommand" class="say">
+
+    <h3 class="say__title">
+        On MacOS? Want to generate a sound file?
+    </h3>
+
+    <p class="say__description">
+        In the terminal, you can use the <code>say</code> binary to generate an audio
+        file (.aiff) using the following command:
+    </p>
+
+    <input #sayRef [value]="sayCommand" (click)="sayRef.select()" (focus)="sayRef.select()" class="say__code" />
+
+</div>-->

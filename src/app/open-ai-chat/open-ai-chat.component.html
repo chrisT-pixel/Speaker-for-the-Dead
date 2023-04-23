@@ -1,0 +1,17 @@
+<div>
+    <div class="card aiPromptCard" *ngFor="let data of textList">
+        <div class="card-header">
+            <div class="input-group mb-3"> 
+                <input name="thePrompt" type="text" class="form-control" [(ngModel)]="data.text" value={{promptString}} placeholder="Enter your prompt here">
+                <div class="input-group-append">
+                    <button type="button" (click)="generateText(data)" class="btn btn-primary">Generate Answer</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="ai-response-text card-text">{{data.response}}</p>
+        </div>
+    </div>
+   
+    <app-text-to-speech [responseString]="responseString"></app-text-to-speech>
+</div>
