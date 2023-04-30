@@ -23,6 +23,8 @@ export class TextToSpeechComponent implements OnInit {
 	public text: string;
 	public voices: SpeechSynthesisVoice[];
 
+	public myTimeout: any;
+
 	// initialize the app component, pass in voice recon
 	constructor(private voiceRecon: VoiceReconComponent) {
 
@@ -59,14 +61,20 @@ export class TextToSpeechComponent implements OnInit {
 	// PUBLIC METHODS.
 	// ---
 
+	//explicitly bound function, recursive call to pause and resume speechSynthesis every 14 seconds to 
+	//fix known bug with speech longer than 15 seconds
+	public resetSpeech = () => { 
+        speechSynthesis.pause();
+        speechSynthesis.resume();
+        this.myTimeout = setTimeout(this.resetSpeech, 14000);
+    }
+
 	// I demo the currently-selected voice.
 	public demoSelectedVoice() : void {
 
 		if ( ! this.selectedVoice ) {
-
 			console.warn( "Expected a voice, but none was selected." );
 			return;
-
 		}
 
 		var demoText = "Best wishes and warmest regards.";
@@ -165,12 +173,10 @@ export class TextToSpeechComponent implements OnInit {
 	// ---
 
 	// I perform the low-level speech synthesis for the given voice, rate, and text.
-	private synthesizeSpeechFromText(
-		voice: SpeechSynthesisVoice,
-		rate: number,
-		text: string
-		) : void {
-		console.log("response string at time of speech call " + this.responseString);
+	private synthesizeSpeechFromText(voice: SpeechSynthesisVoice, rate: number, text: string) : void {
+		
+		//console.log("response string at time of speech call " + this.responseString);
+		var myTimeout: any;
 		var utterance = new SpeechSynthesisUtterance(this.responseString);
 		//utterance.voice = this.selectedVoice;
 		utterance.voice = this.voices[51]; //index 51 is of UK male
@@ -182,6 +188,9 @@ export class TextToSpeechComponent implements OnInit {
 			this.voiceRecon.startService();
 		});
 
+		speechSynthesis.cancel();
+        myTimeout = setTimeout(this.resetSpeech, 14000);
+        utterance.onend =  function() { clearTimeout(myTimeout); }
 		speechSynthesis.speak( utterance );
 		
 

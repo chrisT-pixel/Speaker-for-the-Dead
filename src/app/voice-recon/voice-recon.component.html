@@ -1,11 +1,14 @@
-<div>
-    
-    <h1>Voice recognition</h1>
-    <button style="margin: 10px;" (click)="startService()">Start</button>
-    <button style="margin: 10px;" (click)="stopService()">Stop</button>
+<div class="voice-recon-wrapper">
 
-    <!--<app-open-ai-chat [promptString]="promptString" (stopRecording)="generateText($event)"></app-open-ai-chat>-->
+    <button [disabled]="isStartButtonDisabled" style="margin: 10px;" (click)="startService()">Start Chat Session <mat-icon>record_voice_over</mat-icon></button>
+    <button [disabled]="isStopButtonDisabled" style="margin: 10px;" (click)="stopSession()">End Chat Session <mat-icon>voice_over_off</mat-icon></button>
+    
+    <div class="alert {{statusClass}}" role="alert">
+        {{statusMessage}} <mat-icon>{{statusIcon}}</mat-icon>
+    </div>
+    
+    <app-character></app-character>
+    
     <app-open-ai-chat [promptString]="promptString" [responseString]="responseString"></app-open-ai-chat>
-    <p>{{responseString}}</p>
-    <!--<app-text-to-speech [responseString]="responseString"></app-text-to-speech>-->
+
 </div>
