@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewChild} from '@angular/core'
 import { VoiceReconComponent } from '../voice-recon/voice-recon.component';
 import { OpenaiService } from '../openai.service';
 import { TextToSpeechComponent } from '../text-to-speech/text-to-speech.component';
+import { CharacterComponent } from '../character/character.component';
 
 export class textResponse{
   sno:number=1;
@@ -17,6 +18,7 @@ export class textResponse{
 export class OpenAiChatComponent {
    
   @ViewChild(TextToSpeechComponent) public textToSpeech!: TextToSpeechComponent;
+  @ViewChild(CharacterComponent) public character!: CharacterComponent;
   @Input() promptString: string | undefined;
   @Input() responseString: string | undefined;
   @Output() stopRecording: EventEmitter<string> = new EventEmitter<string>();
@@ -39,6 +41,8 @@ export class OpenAiChatComponent {
       document.getElementsByClassName("card-text")[0].textContent = this.responseString!;
       this.textToSpeech.responseString = this.responseString!;
       this.textToSpeech.detectResponseChanges();
+
+      
       
       
       if(this.textList.length===data.sno){
@@ -51,7 +55,6 @@ export class OpenAiChatComponent {
     //make prompt empty string
     this.promptString = '';
     data.text = this.promptString;
-  
 
   }
 }

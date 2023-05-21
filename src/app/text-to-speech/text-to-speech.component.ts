@@ -1,6 +1,7 @@
-import { Component, Input, Output, OnInit } from '@angular/core';
-//import { OpenAiChatComponent } from '../open-ai-chat/open-ai-chat.component';
+import { Component, Input, Output, OnInit, ViewChild } from '@angular/core';
 import { VoiceReconComponent } from '../voice-recon/voice-recon.component';
+import { CharacterComponent } from '../character/character.component';
+
 
 interface RecommendedVoices {
 	[key: string]: boolean;
@@ -14,6 +15,7 @@ interface RecommendedVoices {
 export class TextToSpeechComponent implements OnInit {
 
 	@Input() responseString: string | undefined;
+	@ViewChild(CharacterComponent) public character!: CharacterComponent;
 
   	public sayCommand: string;
 	public recommendedVoices: RecommendedVoices;
@@ -123,14 +125,10 @@ export class TextToSpeechComponent implements OnInit {
 
 		//}
 
-		//console.log("selected voice is " + this.selectedVoice?.name);
-		//alert("speak is being called NOW");
-
 		this.stop(); 
+		
 		//index of voices[51] is of UK male
 		this.synthesizeSpeechFromText( this.voices[51], this.selectedRate, this.responseString! );
-		// BUG voice stopping too early: https://bugs.chromium.org/p/chromium/issues/detail?id=335907
-		//BUG only speaking on second push of button
 
 	}
 
@@ -192,7 +190,7 @@ export class TextToSpeechComponent implements OnInit {
         myTimeout = setTimeout(this.resetSpeech, 14000);
         utterance.onend =  function() { clearTimeout(myTimeout); }
 		speechSynthesis.speak( utterance );
-		
+	
 
 	}
 

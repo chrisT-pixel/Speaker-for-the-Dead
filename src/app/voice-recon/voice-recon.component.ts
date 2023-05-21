@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { VoiceReconService } from '..//voice-recon.service';
 import { OpenAiChatComponent, textResponse } from '../open-ai-chat/open-ai-chat.component';
+import { CharacterComponent } from '../character/character.component';
 
 let timeoutId: any;
 
@@ -16,6 +17,7 @@ export class VoiceReconComponent {
   
   @Input() data: any;
   @ViewChild(OpenAiChatComponent) public aiChat!: OpenAiChatComponent;
+  @ViewChild(CharacterComponent) public character!: CharacterComponent;
   
   promptString: string | undefined;
   responseString: string | undefined;
@@ -36,16 +38,13 @@ export class VoiceReconComponent {
       clearTimeout(timeoutId);
       const lastResultIndex = event.results.length - 1;
       const lastResult = event.results[lastResultIndex][0].transcript;
-      //console.log(`Recognized: ${lastResult}`);
 
       // start a new timeout to stop voice recon after 1 second of silence
       timeoutId = setTimeout(() => {
         
         this.stopService();
-        //console.log("prompt string " + this.promptString);
-        //console.log('Speech recognition stopped due to inactivity for 2 seconds');
         this.aiChat.textList[0].text = this.promptString!;
-        this.aiChat.generateText(this.aiChat.textList[0]); //MAIN METHOD NEEDED 
+        this.aiChat.generateText(this.aiChat.textList[0]);  
         
       }, 1000);
    
@@ -57,31 +56,44 @@ export class VoiceReconComponent {
   }
 
   startService(){
+    
+    //begin character idle animation
+    this.character.PlayIdleAnimation();
     //make prompts empty strings
     this.promptString = '';
     this.service.text = '';
-    this.service.start()
+    this.service.start();
+    //system state info
     this.statusMessage = 'Clone is listening';
     this.statusClass = 'alert-success';
     this.statusIcon = 'hearing';
     this.isStartButtonDisabled = true;
     this.isStopButtonDisabled = false;
-
+    
     
   }
 
   stopService(){
-   this.service.stop();
+    
+    //begin character thinking animation
+    this.character.PlayThinkingAnimation();
+    this.service.stop();
     //after recording ends, pass voice to text to input box 
     this.promptString = this.service.text;
     this.statusMessage = 'Clone is speaking. Please wait until they are finished before responding';
     this.statusClass = 'alert-info';
     this.statusIcon = 'speaker_notes';
-     
+   
+    timeoutId = setTimeout(() => {
+        
+        this.character.PlayTalkingAnimation();
+        
+      }, 2000);
   }
 
   stopSession(){
-   this.service.stop();
+   
+    this.service.stop();
     //after recording ends, pass voice to text to input box 
     this.promptString = '';
     this.statusMessage = 'Ending chat session. Press the button above to initiate a new chat session';
@@ -89,13 +101,13 @@ export class VoiceReconComponent {
     this.statusIcon = 'warning';
     this.isStartButtonDisabled = false;
     this.isStopButtonDisabled = true;
+    //begin character idle animation
+    this.character.PlayIdleAnimation();
 
-     
   }
 
   generateText(e: string){
     this.stopService();
   }
-
 
 }

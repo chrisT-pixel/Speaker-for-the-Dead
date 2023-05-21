@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 
 declare var webkitSpeechRecognition: any;
 
@@ -31,6 +31,7 @@ export class VoiceReconService {
   }
 
   start() {
+    
     this.isStoppedSpeechRecog = false;
     this.recognition.start();
     console.log("Speech recognition started")
@@ -41,6 +42,7 @@ export class VoiceReconService {
       } else {
         this.wordConcat()
         this.recognition.start();
+        
       }
     });
     
@@ -56,7 +58,5 @@ export class VoiceReconService {
     this.text = this.text + ' ' + this.tempWords;
     this.tempWords = '';
   }
-
-  
 
 }
