@@ -11,8 +11,7 @@ export class OpenaiService {
   private conversationHistory: string[] = [];
   
   configuration = new Configuration({
-    //apiKey: "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",
-    apiKey: "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",
+    apiKey: "XXXXX",
   });
 
   constructor() {
