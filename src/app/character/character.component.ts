@@ -26,8 +26,6 @@ export class CharacterComponent {
           productVersion: "1.0"
           
         }).then(this.unityInstance); //callback promise
-
-        //this.PlayTalkingAnimation();
         
   } 
 
@@ -37,7 +35,7 @@ export class CharacterComponent {
     console.log("calling PlayAnimation()");
 
     this.unityInstance.then((unityInstanceAfter: any) => {
-      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterThinking", "");
+      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterThinking", ""); //send instructions to Unity
     }).catch((error: any) => {
       console.error(error);
     });
@@ -49,19 +47,31 @@ export class CharacterComponent {
     console.log("calling PlayIdleAnimation()");
 
     this.unityInstance.then((unityInstanceAfter: any) => {
-      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterIdle", "");
+      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterIdle", ""); //send instructions to Unity
     }).catch((error: any) => {
       console.error(error);
     });
   }
 
-  //call an animation script (PlayCharacter) on our Male character in the Unity environment
+  //call an animation script (PlayCharactertalking) on our Male character in the Unity environment
   public PlayTalkingAnimation(): void {
   
     console.log("calling PlayTalkingAnimation()");
 
     this.unityInstance.then((unityInstanceAfter: any) => {
-      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterTalking", "");
+      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterTalking", ""); //send instructions to Unity
+    }).catch((error: any) => {
+      console.error(error);
+    });
+  }
+
+  //call an animation script (PlayCharactertalking) on our Male character in the Unity environment
+  public PlayWavingAnimation(): void {
+  
+    console.log("calling PlayWavingAnimation()");
+
+    this.unityInstance.then((unityInstanceAfter: any) => {
+      unityInstanceAfter.SendMessage("Male_Adult_03_facial", "PlayCharacterWaving", ""); //send instructions to Unity
     }).catch((error: any) => {
       console.error(error);
     });

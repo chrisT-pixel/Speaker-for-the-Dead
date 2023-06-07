@@ -13,19 +13,19 @@ export class VoiceReconService {
   public text = '';
   tempWords: any = '';
   
-  constructor() { }
+  constructor() { } //default constructor
 
   init() {
 
     this.recognition.interimResults = true;
     this.recognition.lang = 'en-US';
 
-    this.recognition.addEventListener('result', (e: any) => {
+    this.recognition.addEventListener('result', (e: any) => { //add event listener to instance of webkitSpeechRecognition()h
       const transcript = Array.from(e.results)
         .map((result: any) => result[0])
         .map((result) => result.transcript)
         .join('');
-      this.tempWords = transcript;
+      this.tempWords = transcript; //keep building up the transcript as the user speaks
       console.log(transcript);
     });
   }
@@ -40,9 +40,7 @@ export class VoiceReconService {
         this.recognition.stop();
         console.log("End speech recognition")
       } else {
-        this.wordConcat()
-        this.recognition.start();
-        
+        this.wordConcat(); //keep adding words to the string
       }
     });
     

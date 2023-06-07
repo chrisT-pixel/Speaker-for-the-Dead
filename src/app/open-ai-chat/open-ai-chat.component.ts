@@ -15,8 +15,10 @@ export class textResponse{
   templateUrl: './open-ai-chat.component.html',
   styleUrls: ['./open-ai-chat.component.scss']
 })
+
 export class OpenAiChatComponent {
    
+  //inter-component communication
   @ViewChild(TextToSpeechComponent) public textToSpeech!: TextToSpeechComponent;
   @ViewChild(CharacterComponent) public character!: CharacterComponent;
   @Input() promptString: string | undefined;
@@ -42,9 +44,6 @@ export class OpenAiChatComponent {
       this.textToSpeech.responseString = this.responseString!;
       this.textToSpeech.detectResponseChanges();
 
-      
-      
-      
       if(this.textList.length===data.sno){
         this.textList.push({sno:1,text:'',response:''});
       }

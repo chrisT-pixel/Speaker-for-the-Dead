@@ -14,6 +14,7 @@ interface RecommendedVoices {
 })
 export class TextToSpeechComponent implements OnInit {
 
+	//inter-component communication
 	@Input() responseString: string | undefined;
 	@ViewChild(CharacterComponent) public character!: CharacterComponent;
 
@@ -24,7 +25,6 @@ export class TextToSpeechComponent implements OnInit {
 	public selectedVoice: SpeechSynthesisVoice | null;
 	public text: string;
 	public voices: SpeechSynthesisVoice[];
-
 	public myTimeout: any;
 
 	// initialize the app component, pass in voice recon
@@ -71,7 +71,7 @@ export class TextToSpeechComponent implements OnInit {
         this.myTimeout = setTimeout(this.resetSpeech, 14000);
     }
 
-	// I demo the currently-selected voice.
+	// I demo the currently-selected voice. Not currently in use in app
 	public demoSelectedVoice() : void {
 
 		if ( ! this.selectedVoice ) {
@@ -118,13 +118,6 @@ export class TextToSpeechComponent implements OnInit {
 
 	// I synthesize speech from the current text for the currently-selected voice.
 	public speak() : void {
-
-		//if ( ! this.selectedVoice || ! this.text ) {
-
-		//	return;
-
-		//}
-
 		this.stop(); 
 		
 		//index of voices[51] is of UK male
@@ -144,7 +137,7 @@ export class TextToSpeechComponent implements OnInit {
 
 	}
 
-
+	// Not currently used in app
 	// I update the "say" command that can be used to generate the a sound file from the
 	// current speech synthesis configuration.
 	public updateSayCommand() : void {
@@ -173,7 +166,6 @@ export class TextToSpeechComponent implements OnInit {
 	// I perform the low-level speech synthesis for the given voice, rate, and text.
 	private synthesizeSpeechFromText(voice: SpeechSynthesisVoice, rate: number, text: string) : void {
 		
-		//console.log("response string at time of speech call " + this.responseString);
 		var myTimeout: any;
 		var utterance = new SpeechSynthesisUtterance(this.responseString);
 		//utterance.voice = this.selectedVoice;
@@ -194,9 +186,9 @@ export class TextToSpeechComponent implements OnInit {
 
 	}
 
- 	detectResponseChanges() {
-    	
-		//const div = document.querySelector('.responseStringWrapper');
+	//detect changes that occur to a target div. If this div changes, we know that OpenAI has returned our answer
+ 	detectResponseChanges() { 
+    
 		const div = document.querySelector('.ai-response-text');
     	const config = { characterData: true, attributes: true, childList: true, subtree: true };
    	    const observer = new MutationObserver((mutation) => {

@@ -15,6 +15,7 @@ let timeoutId: any;
 
 export class VoiceReconComponent {
   
+  //inter-component communication
   @Input() data: any;
   @ViewChild(OpenAiChatComponent) public aiChat!: OpenAiChatComponent;
   @ViewChild(CharacterComponent) public character!: CharacterComponent;
@@ -28,11 +29,12 @@ export class VoiceReconComponent {
   isStopButtonDisabled: boolean = true;
 
 
-  //constructor passes in its service and the chat component
+  //constructor passes in its service 
   constructor(private service : VoiceReconService) { 
  
     this.service.init()
 
+    //trigger when recon service has processed incoming audio and generated the result
     this.service.recognition.onresult = (event: any) => {
     
       clearTimeout(timeoutId);
@@ -102,7 +104,7 @@ export class VoiceReconComponent {
     this.isStartButtonDisabled = false;
     this.isStopButtonDisabled = true;
     //begin character idle animation
-    this.character.PlayIdleAnimation();
+    this.character.PlayWavingAnimation();
 
   }
 

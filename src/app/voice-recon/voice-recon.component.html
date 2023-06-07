@@ -1,14 +1,16 @@
 <div class="voice-recon-wrapper">
-
+    <!--buttons can be enabled or disabled based on state. Icons used for style purposes -->
     <button [disabled]="isStartButtonDisabled" style="margin: 10px;" (click)="startService()">Start Chat Session <mat-icon>record_voice_over</mat-icon></button>
     <button [disabled]="isStopButtonDisabled" style="margin: 10px;" (click)="stopSession()">End Chat Session <mat-icon>voice_over_off</mat-icon></button>
     
+    <!-- custom alerts based on current state of app -->
     <div class="alert {{statusClass}}" role="alert">
         {{statusMessage}} <mat-icon>{{statusIcon}}</mat-icon>
     </div>
     
+    <!-- child components -->
     <app-character></app-character>
-    
+    <!-- this child component needs dynamic data from itself -->
     <app-open-ai-chat [promptString]="promptString" [responseString]="responseString"></app-open-ai-chat>
 
 </div>
